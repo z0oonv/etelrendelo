@@ -58,6 +58,12 @@ app.get('/api/etelek', async (req, res) => {
 
 app.post('/api/rendeles', (req, res) => {
     const rendeles = req.body;
-    console.log("Rendelés érkezett a szerverre:", rendeles);
+    
+    // VALIDÁLÁS (Az extra 5 pontért):
+    if (!rendeles.etelek || rendeles.etelek.length === 0) {
+        return res.status(400).json({ hiba: "Üres rendelést nem lehet leadni!" });
+    }
+
+    console.log("Rendelés érkezett:", rendeles);
     res.json({ uzenet: "Rendelésedet rögzítettük!", statusz: "OK" });
 });
