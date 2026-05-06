@@ -7,6 +7,8 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 *   **Kosár Kezelés:** Termékek hozzáadása és végösszeg számítása kliensoldalon.
 *   **Rendelés Leadása:** Az adatok továbbítása a szervernek API végponton keresztül.
 *   **Reszponzív Design:** Bootstrap 5 keretrendszerrel készült, így mobilról is jól használható.
+*   **Rendelés naplózása:** Minden sikeres rendelés mentésre kerül a rendelesek.log fileban.
+*   **Docker támogatás:** Az alkalmazás konténerizálva is futtatható a mellékelt 'Dockerfile' segítségével.
 
 ##  Technológiai Stack
 *   **Frontend:** HTML5, CSS3 (Bootstrap 5), JavaScript (Fetch API)
