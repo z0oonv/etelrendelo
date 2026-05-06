@@ -21,6 +21,7 @@
   "dependencies": {
     "express": "^5.2.1",
     "sqlit": "^2.0.0",
+    "sqlite": "^5.1.1",
     "sqlite3": "^6.0.1"
   }
 }
