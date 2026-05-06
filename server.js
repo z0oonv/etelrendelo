@@ -5,36 +5,48 @@ const path = require('path');
 
 const app = express();
 app.use(express.json());
-app.use(express.static('.')); // Kiszolgálja a HTML, CSS és JS fájljainkat
+app.use(express.static('.')); 
 
 let db;
 
-// 1. Adatbázis kapcsolat és Tábla létrehozása
 (async () => {
-    db = await open({
-        filename: './database.db',
-        driver: sqlite3.Database
-    });
+    try {
+        // 1. Kapcsolódás az adatbázishoz
+        db = await open({
+            filename: './database.db',
+            driver: sqlite3.Database
+        });
 
-    await db.exec(`
-        CREATE TABLE IF NOT EXISTS etelek (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nev TEXT,
-            ar INTEGER
-        )
-    `);
+        // 2. Tábla létrehozása
+        await db.exec(`
+            CREATE TABLE IF NOT EXISTS etelek (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nev TEXT,
+                ar INTEGER
+            )
+        `);
 
-    // Alapadatok feltöltése, ha üres az adatbázis
-    const rows = await db.all("SELECT * FROM etelek");
-    if (rows.length === 0) {
-        await db.run("INSERT INTO etelek (nev, ar) VALUES ('Margherita Pizza', 2500)");
-        await db.run("INSERT INTO etelek (nev, ar) VALUES ('Sajtos Burger', 2100)");
-        await db.run("INSERT INTO etelek (nev, ar) VALUES ('Cézár Saláta', 1900)");
-        console.log("Adatbázis alapértelmezett ételekkel feltöltve.");
+        // 3. Alapadatok feltöltése
+        const rows = await db.all("SELECT * FROM etelek");
+        if (rows.length === 0) {
+            await db.run("INSERT INTO etelek (nev, ar) VALUES ('Margherita Pizza', 2500)");
+            await db.run("INSERT INTO etelek (nev, ar) VALUES ('Sajtos Burger', 2100)");
+            await db.run("INSERT INTO etelek (nev, ar) VALUES ('Cézár Saláta', 1900)");
+            console.log("Adatbázis alapértelmezett ételekkel feltöltve.");
+        }
+
+        // 4. CSAK MOST indítjuk el a szervert, ha az adatbázis kész
+        const PORT = 3000;
+        app.listen(PORT, () => {
+            console.log(`Szerver elindult és az adatbázis kész: http://localhost:${PORT}`);
+        });
+
+    } catch (err) {
+        console.error("Hiba történt az inicializálás során:", err);
     }
 })();
 
-// 2. API végpont: Ételek listázása (GET)
+// API végpontok maradnak a helyükön
 app.get('/api/etelek', async (req, res) => {
     try {
         const etelek = await db.all("SELECT * FROM etelek");
@@ -44,14 +56,8 @@ app.get('/api/etelek', async (req, res) => {
     }
 });
 
-// 3. API végpont: Rendelés leadása (POST)
 app.post('/api/rendeles', (req, res) => {
     const rendeles = req.body;
     console.log("Rendelés érkezett a szerverre:", rendeles);
-    res.json({ uzenet: "Rendelésedet rögzítettük az adatbázisban!", statusz: "OK" });
-});
-
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Szerver elindult: http://localhost:${PORT}`);
+    res.json({ uzenet: "Rendelésedet rögzítettük!", statusz: "OK" });
 });
