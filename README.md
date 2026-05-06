@@ -34,3 +34,7 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 A unit tesztek futtatásához használd a következő parancsot:
 ```bash
 node teszt.js
+##  Docker futtatás
+Ha rendelkezel Docker-rel, az alábbi parancsokkal is elindíthatod az alkalmazást:
+1. `docker build -t etelrendelo .`
+2. `docker run -p 3000:3000 etelrendelo`
