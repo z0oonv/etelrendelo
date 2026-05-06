@@ -44,18 +44,30 @@ function kosarFrissites() {
 
 // Rendelés leadása a szervernek
 async function rendelesLeadasa() {
-    if (kosar.length === 0) return alert("Üres a kosarad!");
+    if (kosar.length === 0) {
+        alert("Üres a kosarad!");
+        return;
+    }
 
+    // Elküldjük a kosár tartalmát a szervernek
     const response = await fetch('/api/rendeles', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ termekek: kosar, datum: new Date() })
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            etelek: kosar,
+            osszeg: document.getElementById('osszesen').innerText
+        })
     });
 
-    const result = await response.json();
-    alert(result.uzenet);
-    kosar = [];
-    kosarFrissites();
+    const valasz = await response.json();
+    
+    if (valasz.statusz === "OK") {
+        alert("Siker! " + valasz.uzenet);
+        kosar = []; // Kosár ürítése
+        kosarFrissites();
+    }
 }
 
 window.onload = etlapBetoltes;
