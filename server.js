@@ -2,7 +2,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 const path = require('path');
-
+const fs = require('fs');
 const app = express();
 app.use(express.json());
 app.use(express.static('.')); 
@@ -55,15 +55,26 @@ app.get('/api/etelek', async (req, res) => {
         res.status(500).json({ hiba: "Nem sikerült lekérni az ételeket" });
     }
 });
-
-app.post('/api/rendeles', (req, res) => {
+app.post('/api/rendeles', async (req, res) => {
     const rendeles = req.body;
-    
-    // VALIDÁLÁS (Az extra 5 pontért):
+
+    // 1. Validálás (5 pont az alapfeladatból)
     if (!rendeles.etelek || rendeles.etelek.length === 0) {
         return res.status(400).json({ hiba: "Üres rendelést nem lehet leadni!" });
     }
 
-    console.log("Rendelés érkezett:", rendeles);
-    res.json({ uzenet: "Rendelésedet rögzítettük!", statusz: "OK" });
+    // 2. Rendelési előzmények mentése fájlba (Opcionális 15 pont)
+    const naploBejegyzes = {
+        időpont: new Date().toISOString(),
+        rendeles: rendeles.etelek,
+        vegosszeg: rendeles.osszeg
+    };
+
+    // Hozzáfűzzük a rendelesek.json fájlhoz (ha nincs, létrehozza)
+    fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
+        if (err) console.error("Hiba a mentésnél:", err);
+    });
+
+    console.log("Rendelés érkezett és naplózva:", rendeles);
+    res.json({ uzenet: "Rendelésedet rögzítettük és naplóztuk!", statusz: "OK" });
 });
