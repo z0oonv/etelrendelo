@@ -58,12 +58,12 @@ app.get('/api/etelek', async (req, res) => {
 app.post('/api/rendeles', async (req, res) => {
     const rendeles = req.body;
 
-    // 1. Validálás (5 pont az alapfeladatból)
+    // 1. Validálás 
     if (!rendeles.etelek || rendeles.etelek.length === 0) {
         return res.status(400).json({ hiba: "Üres rendelést nem lehet leadni!" });
     }
 
-    // 2. Rendelési előzmények mentése fájlba (Opcionális 15 pont)
+    // 2. Rendelési előzmények mentése fájlba 
     const naploBejegyzes = {
         időpont: new Date().toISOString(),
         rendeles: rendeles.etelek,
