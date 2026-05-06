@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyorst ételrendelés</title>
+    <!-- Bootstrap CSS a szép kinézethez -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .etel-kartya { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand">🍕 Online Étterem</span>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Étlap oldal -->
+        <div class="col-md-8">
+            <h3>Étlap</h3>
+            <div id="etlap-kontener" class="row">
+                <!-- Ide kerülnek majd az ételek JavaScriptből -->
+                <div class="card etel-kartya">
+                    <div class="card-body">
+                        <h5 class="card-title">Betöltés...</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kosár oldal -->
+        <div class="col-md-4">
+            <h3>Kosár</h3>
+            <ul id="kosar-lista" class="list-group mb-3">
+                <li class="list-group-item text-muted">A kosarad még üres.</li>
+            </ul>
+            <div class="card p-3">
+                <h5>Összesen: <span id="osszesen">0</span> Ft</h5>
+                <button class="btn btn-success w-100" onclick="rendelesLeadasa()">Rendelés leadása</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Ide fogjuk írni a logikát a következő lépésben!
+    function rendelesLeadasa() {
+        alert("Köszönjük a rendelést! Hamarosan szállítjuk.");
+    }
+</script>
+
+</body>
+</html>
