@@ -1,20 +1,20 @@
-Online Étterem - API Dokumentáció
+# Online Étterem - API Dokumentáció
 Ez a dokumentáció leírja a projekt backendje által biztosított végpontokat és azok használatát.
 
-Alap URL
-A helyi fejlesztői környezetben: http://localhost:3000/api
+## Alap URL
+`http://localhost:3000/api`
 
-1. Étlap lekérése
+## 1. Étlap lekérése
 Lekéri az adatbázisban tárolt összes elérhető ételt.
 
-Végpont: /etelek
+* **Végpont:** `/etelek`
 
-Metódus: GET
+* **Metódus:** `GET`
 
-Válasz formátuma: application/json
+* **Válasz formátuma:** `application/json`
 
 Sikeres válasz (200 OK)
-JSON
+```JSON
 [
   {
     "id": 1,
@@ -29,14 +29,15 @@ JSON
     "kategoria": "Tészta"
   }
 ]
-2. Rendelés leadása
+---
+## 2. Rendelés leadása
 Új rendelést rögzít az adatbázisban és a naplófájlban.
 
-Végpont: /rendeles
+* **Végpont:** `/rendeles`
 
 Metódus: POST
 
-Válasz formátuma: application/json
+Válasz formátuma: `application/json`
 
 Kérés törzse (Request Body)
 JSON
