@@ -4,6 +4,8 @@ Ez a dokumentáció leírja a projekt backendje által biztosított végpontokat
 ## Alap URL
 `http://localhost:3000/api`
 
+---
+
 ## 1. Étlap lekérése
 Lekéri az adatbázisban tárolt összes elérhető ételt.
 
@@ -13,7 +15,7 @@ Lekéri az adatbázisban tárolt összes elérhető ételt.
 
 * **Válasz formátuma:** `application/json`
 
-Sikeres válasz (200 OK)
+* **Sikeres válasz (200 OK)**
 ```JSON
 [
   {
@@ -29,18 +31,19 @@ Sikeres válasz (200 OK)
     "kategoria": "Tészta"
   }
 ]
----
+```
+
 ## 2. Rendelés leadása
 Új rendelést rögzít az adatbázisban és a naplófájlban.
 
 * **Végpont:** `/rendeles`
 
-Metódus: POST
+Metódus: `POST`
 
 Válasz formátuma: `application/json`
 
 Kérés törzse (Request Body)
-JSON
+```JSON
 {
   "etelek": [
     {"id": 1, "nev": "Margherita Pizza", "mennyiseg": 2},
@@ -48,22 +51,26 @@ JSON
   ],
   "osszeg": 7800
 }
-Sikeres válasz (200 OK)
-JSON
+```
+* **Sikeres válasz (200 OK)**
+```JSON
 {
   "üzenet": "Rendelés sikeresen mentve!",
   "rendelesId": 42
 }
- Hiba válasz (400 Bad Request)
+```
+* **Hiba válasz (400 Bad Request)**
 Ha a küldött adatok hiányosak vagy a rendelési lista üres.
 
-JSON
+```JSON
 {
   "hiba": "Érvénytelen rendelési adatok!"
 }
-Biztonsági jellemzők
+```
+## Biztonsági jellemzők
 SQL Injection elleni védelem: Minden adatbázis-művelet paraméterezett lekérdezésekkel (Prepared Statements) történik.
 
 Szerveroldali validálás: A szerver ellenőrzi az adatok meglétét és formátumát a feldolgozás előtt.
 
 Naplózás: Minden POST kérés után a rendszer automatikusan rögzíti az eseményt a rendelesek.log fájlba.
+
