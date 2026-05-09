@@ -20,9 +20,9 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 *   `POST /api/rendeles` - Új rendelés rögzítése és naplózása.
 
 ##  Telepítés és Futtatás
-1.  Klónozd vagy töltsd le a projektet.
-2.  Nyiss egy terminált a mappában.
-3.  Telepítsd a függőségeket:
+1.  Klónozza vagy töltse le a projektet.
+2.  Nyisson egy terminált a mappában.
+3.  Telepítse a függőségeket:
     ```bash
     npm install
     ```
@@ -33,10 +33,10 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 5.  Nyisd meg a böngészőben: `http://localhost:3000`
 
 ##  Tesztelés
-A unit tesztek futtatásához használd a következő parancsot:
+A unit tesztek futtatásához használja a következő parancsot:
 ```bash
 node teszt.js
 ##  Docker futtatás
-Ha rendelkezel Docker-rel, az alábbi parancsokkal is elindíthatod az alkalmazást:
+Ha rendelkezik Docker-rel, az alábbi parancsokkal is elindíthatja az alkalmazást:
 1. `docker build -t etelrendelo .`
 2. `docker run -p 3000:3000 etelrendelo`
