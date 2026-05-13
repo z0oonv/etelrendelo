@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require('express'); //Meghívja az express keretrendszert.
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 const path = require('path');
 const fs = require('fs');
-const app = express();
+const app = express(); //Létrehozza az express alkalmazást.
 app.use(express.json());
 app.use(express.static('public')); 
 
