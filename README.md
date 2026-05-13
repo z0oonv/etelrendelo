@@ -20,29 +20,29 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 *   `POST /api/rendeles` - Új rendelés rögzítése és naplózása.
 ## Műkődés
 ```mermaid
-sequenceDiagram
+  sequenceDiagram
     participant U as Felhasználó
     participant F as Frontend (script.js)
     participant B as Backend (server.js)
     participant D as Adatbázis (SQLite)
 
-    Note over U,D: Étlap betöltése
-    F->>B: GET /api/etelek
+    Note over U,D: 1. Étlap betöltése folyamat
+    F->>B: GET /api/etelek (etlapBetoltes() függvény)
     B->>D: SELECT * FROM etelek
-    D-->>B: Étel adatok
-    B-->>F: JSON válasz
-    F->>U: Megjeleníti a kártyákat
+    D-->>B: Étel adatok (eredményhalmaz)
+    B-->>F: JSON válasz (adatok küldése)
+    F->>U: Megjeleníti az étel kártyákat
 
-    Note over U,D: Rendelési folyamat
+    Note over U,D: 2. Rendelési folyamat
     U->>F: "Kosárba" gomb megnyomása
-    F->>F: kosarFrissites()
+    F->>F: kosarFrissites() (helyi állapotmódosítás)
     U->>F: "Rendelés leadása" gomb
-    F->>B: POST /api/rendeles (JSON)
-    B->>B: Validálás & Logolás
+    F->>B: POST /api/rendeles (rendelesLeadasa() függvény)
+    B->>B: Validálás & Logolás (Express middleware)
     B->>D: INSERT INTO rendelesek
-    D-->>B: Sikeres mentés
-    B-->>F: { statusz: "OK" }
-    F->>U: "Sikeres rendelés" üzenet
+    D-->>B: Sikeres mentés visszaigazolása
+    B-->>F: JSON válasz { statusz: "OK" }
+    F->>U: "Sikeres rendelés" felugró üzenet
 ```
 ##  Telepítés és Futtatás
 1.  Klónozza vagy töltse le a projektet.
