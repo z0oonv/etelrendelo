@@ -18,7 +18,32 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
 ##  API Végpontok
 *   `GET /api/etelek` - Az összes választható étel listázása.
 *   `POST /api/rendeles` - Új rendelés rögzítése és naplózása.
+## Műkődés
+```mermaid
+sequenceDiagram
+    participant U as Felhasználó
+    participant F as Frontend (script.js)
+    participant B as Backend (server.js)
+    participant D as Adatbázis (SQLite)
 
+    Note over U,D: Étlap betöltése
+    F->>B: GET /api/etelek
+    B->>D: SELECT * FROM etelek
+    D-->>B: Étel adatok
+    B-->>F: JSON válasz
+    F->>U: Megjeleníti a kártyákat
+
+    Note over U,D: Rendelési folyamat
+    U->>F: "Kosárba" gomb megnyomása
+    F->>F: kosarFrissites()
+    U->>F: "Rendelés leadása" gomb
+    F->>B: POST /api/rendeles (JSON)
+    B->>B: Validálás & Logolás
+    B->>D: INSERT INTO rendelesek
+    D-->>B: Sikeres mentés
+    B-->>F: { statusz: "OK" }
+    F->>U: "Sikeres rendelés" üzenet
+```
 ##  Telepítés és Futtatás
 1.  Klónozza vagy töltse le a projektet.
 2.  Nyisson egy terminált a mappában.
