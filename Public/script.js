@@ -1,6 +1,8 @@
-// script.js - KLIENS OLDAL
-// [FE-01] Étlap betöltése (kapcsolódik: [BE-01])
-// [FE-02] Kosár kezelése
+// === SCRIPT.JS TÉRKÉP / FUNKCIÓK ===
+// [FE-01] etlapBetoltes() -> Lekéri az adatokat a szerverről (kapcsolódik a server.js GET ágához)
+// [FE-02] kosarba() -> Kezeli a helyi kosár változót (memóriában tárolás)
+// [FE-03] kosarFrissites() -> Frissíti a HTML-t (DOM manipuláció a Bootstrap osztályokkal)
+// [FE-04] rendelesLeadasa() -> Elküldi a kosarat a szervernek (kapcsolódik a server.js POST ágához)
 let kosar = [];
 
 // Étlap lekérése a szerver API-tól
