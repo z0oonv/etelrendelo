@@ -1,3 +1,6 @@
+// script.js - KLIENS OLDAL
+// [FE-01] Étlap betöltése (kapcsolódik: [BE-01])
+// [FE-02] Kosár kezelése
 let kosar = [];
 
 // Étlap lekérése a szerver API-tól
