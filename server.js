@@ -1,3 +1,6 @@
+// server.js - API SZERVER
+// [BE-01] Étlap lekérése: 30-45. sor
+// [BE-02] Rendelés mentése: 50-70. sor
 const express = require('express'); //Meghívja az express keretrendszert.
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
