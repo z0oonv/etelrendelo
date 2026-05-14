@@ -2,16 +2,17 @@
 // [BE-01] Étlap lekérése: 30-45. sor
 // [BE-02] Rendelés mentése: 50-70. sor
 const express = require('express'); //Meghívja az express keretrendszert.
-const sqlite3 = require('sqlite3');
-const { open } = require('sqlite');
-const path = require('path');
-const fs = require('fs');
+const sqlite3 = require('sqlite3');//SQLite adatbázis kezelő könyvtár.
+const { open } = require('sqlite');//Segít megnyitni az SQLite adatbázist aszinkron módon.
+const path = require('path');//Segít fájl- és könyvtárútvonalak kezelésében.
+const fs = require('fs');//Fájlrendszer műveletekhez, például naplózás.
 const app = express(); //Létrehozza az express alkalmazást.
 app.use(express.json());
 app.use(express.static('public')); 
 
 let db;
-
+// Az adatbázis inicializálása és a szerver indítása csak akkor történik meg, ha az adatbázis sikeresen létre lett hozva és feltöltve.
+//  Ez biztosítja, hogy a szerver csak akkor indul el, ha minden szükséges erőforrás rendelkezésre áll.
 (async () => {
     try {
         // 1. Kapcsolódás az adatbázishoz
@@ -47,18 +48,19 @@ let db;
             console.log("Adatbázis alapértelmezett ételekkel feltöltve.");
         }
 
-        // 4. CSAK MOST indítjuk el a szervert, ha az adatbázis kész
+        // 5. CSAK MOST indítjuk el a szervert, ha az adatbázis kész
         const PORT = 3000;
         app.listen(PORT, () => {
             console.log(`Szerver elindult és az adatbázis kész: http://localhost:${PORT}`);
         });
-
+// Ha bármilyen hiba történik az inicializálás során, azt itt kezeljük
+// Ez megakadályozza, hogy a szerver elinduljon egy nem működő adatbázissal, és segít gyorsan azonosítani a problémákat.
     } catch (err) {
         console.error("Hiba történt az inicializálás során:", err);
     }
 })();
 
-// API végpontok maradnak a helyükön
+// [BE-01] Étlap lekérése
 app.get('/api/etelek', async (req, res) => {
     try {
         const etelek = await db.all("SELECT * FROM etelek");
@@ -67,6 +69,7 @@ app.get('/api/etelek', async (req, res) => {
         res.status(500).json({ hiba: "Nem sikerült lekérni az ételeket" });
     }
 });
+// [BE-02] Rendelés mentése
 app.post('/api/rendeles', async (req, res) => {
     const rendeles = req.body;
 
@@ -87,7 +90,7 @@ app.post('/api/rendeles', async (req, res) => {
             rendeles: rendeles.etelek,
             vegosszeg: rendeles.osszeg
         };
-
+// Hozzáfűzzük a rendelesek.log fájlhoz (ha nincs, létrehozza)
         fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
             if (err) console.error("Hiba a naplózásnál:", err);
         });
@@ -117,7 +120,7 @@ app.post('/api/rendeles', async (req, res) => {
     fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
         if (err) console.error("Hiba a mentésnél:", err);
     });
-
+// 4. Visszajelzés a kliensnek
     console.log("Rendelés érkezett és naplózva:", rendeles);
     res.json({ uzenet: "Rendelésedet rögzítettük és naplóztuk!", statusz: "OK" });
 });

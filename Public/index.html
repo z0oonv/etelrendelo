@@ -1,3 +1,9 @@
+// JavaScript fájl az étlap betöltéséhez, kosár kezeléséhez és rendelés leadásához
+let kosar = [];// Ez a tömb fogja tárolni a kosárban lévő tételeket
+// Étlap betöltése a szerverről és megjelenítése a HTML-ben
+async function etlapBetoltes() {
+    const response = await fetch('/etlap'); // Kérés a szerverhez az étlap adataiért
+    const etelek = await response.json(); // Válasz JSON formátumban, amely tartalmazza az ételek listáját  
 <!DOCTYPE html>
 <html lang="hu">
 <head>

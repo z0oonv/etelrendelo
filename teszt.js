@@ -1,3 +1,4 @@
+// Egyszerű unit tesztek a szerver működésének ellenőrzésére
 const fs = require('fs');
 
 console.log("--- UNIT TESZTEK INDÍTÁSA ---");
@@ -26,6 +27,6 @@ function dbTeszt() {
         console.error("Teszt 2: Adatbázis fájl nem található!");
     }
 }
-
+// Tesztek futtatása
 osszegTeszt();
 dbTeszt();
