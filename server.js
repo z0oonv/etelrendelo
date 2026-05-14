@@ -79,8 +79,7 @@ app.post('/api/rendeles', async (req, res) => {
     }
 
     try {
-       // 2. Rendelés mentése adatbázisba
-        // Az etelek oszlopban JSON stringként tároljuk a rendelés részleteit
+        // 2. Rendelés mentése adatbázisba
         await db.run("INSERT INTO rendelesek (etelek, osszeg) VALUES (?, ?)",
             [JSON.stringify(rendeles.etelek), rendeles.osszeg]);
 
@@ -90,37 +89,20 @@ app.post('/api/rendeles', async (req, res) => {
             rendeles: rendeles.etelek,
             vegosszeg: rendeles.osszeg
         };
-// Hozzáfűzzük a rendelesek.log fájlhoz (ha nincs, létrehozza)
+
         fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
             if (err) console.error("Hiba a naplózásnál:", err);
         });
 
-        // 4. Visszajelzés a kliensnek
+        // 4. Visszajelzés a kliensnek - EZ LEGYEN AZ UTOLSÓ SOR A SIKERES ÁGON
         console.log("Rendelés mentve és naplózva:", rendeles);
-        res.json({ uzenet: "Rendelésedet rögzítettük az adatbázisban és a naplóban is!", statusz: "OK" });
+        return res.json({ uzenet: "Rendelésedet rögzítettük!", statusz: "OK" });
 
     } catch (err) {
         console.error("Hiba a folyamat során:", err);
-        // Ha a válasz még nem lett elküldve, küldjünk egy hibaválaszt
         if (!res.headersSent) {
-            res.status(500).json({ hiba: "Nem sikerült rögzíteni a rendelést" });
+            return res.status(500).json({ hiba: "Nem sikerült rögzíteni a rendelést" });
         }
     }
-   
-   
-
-    // 3. Rendelési előzmények mentése fájlba 
-    const naploBejegyzes = {
-        időpont: new Date().toISOString(),
-        rendeles: rendeles.etelek,
-        vegosszeg: rendeles.osszeg
-    };
-
-    // Hozzáfűzzük a rendelesek.json fájlhoz (ha nincs, létrehozza)
-    fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
-        if (err) console.error("Hiba a mentésnél:", err);
-    });
-// 4. Visszajelzés a kliensnek
-    console.log("Rendelés érkezett és naplózva:", rendeles);
-    res.json({ uzenet: "Rendelésedet rögzítettük és naplóztuk!", statusz: "OK" });
+    // FIGYELEM: Itt már ne legyen semmi más! A függvény véget ér.
 });

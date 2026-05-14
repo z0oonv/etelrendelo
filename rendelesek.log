@@ -11,3 +11,12 @@
 {"időpont":"2026-05-14T19:58:39.352Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Sajtos Burger","ar":2100},{"nev":"Margherita Pizza","ar":2500}],"vegosszeg":6500}
 {"időpont":"2026-05-14T19:59:22.622Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Sajtos Burger","ar":2100},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":8600}
 {"időpont":"2026-05-14T19:59:22.621Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Sajtos Burger","ar":2100},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":8600}
+{"időpont":"2026-05-14T20:18:45.323Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":6500}
+{"időpont":"2026-05-14T20:18:45.329Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":6500}
+{"időpont":"2026-05-14T20:30:14.858Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":6500}
+{"időpont":"2026-05-14T20:39:33.129Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":6500}
+{"időpont":"2026-05-14T20:42:27.131Z","rendeles":[{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100},{"nev":"Cézár Saláta","ar":1900}],"vegosszeg":6500}
+{"időpont":"2026-05-14T20:49:47.169Z","rendeles":[{"nev":"Cézár Saláta","ar":1900},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":4000}
+{"időpont":"2026-05-14T20:52:17.093Z","rendeles":[{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":4600}
+{"időpont":"2026-05-14T20:54:49.058Z","rendeles":[{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100},{"nev":"Cézár Saláta","ar":1900},{"nev":"Cézár Saláta","ar":1900}],"vegosszeg":8400}
+{"időpont":"2026-05-14T21:06:52.486Z","rendeles":[{"nev":"Margherita Pizza","ar":2500},{"nev":"Sajtos Burger","ar":2100}],"vegosszeg":4600}
