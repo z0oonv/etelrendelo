@@ -10,27 +10,28 @@ async function etlapBetoltes() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Étterem</title>
-    // Bootstrap CSS betöltése CDN-ről
+ // Bootstrap CSS betöltése CDN-ről
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <span class="navbar-brand"> Online Étterem</span>
+// Navigációs sáv a weboldal tetején, amely tartalmazza az étterem nevét
+<nav class="navbar navbar-dark bg-dark">                                                                        // Ez a navigációs sáv, amely a weboldal tetején helyezkedik el, és tartalmazza az étterem nevét
+    <div class="container">                                                                                     // Ez a konténer a navigációs sáv tartalmát fogja tartalmazni, amely jelen esetben csak az étterem neve
+        <span class="navbar-brand"> Online Étterem</span>                                                       // Ez a span elem tartalmazza az étterem nevét, amely a navigációs sávban jelenik meg
     </div>
+// Ez a gomb a navigációs sáv jobb oldalán helyezkedik el, és a kosár ikonja lesz, amelyre kattintva a felhasználó megtekintheti a kosár tartalmát
 </nav>
-
-<div class="container mt-4">
-    <div class="row">
+// Fő tartalom, amely két oszlopra van osztva: bal oldalon az étlap, jobb oldalon a kosár
+<div class="container mt-4">                                                                                    // Itt kezdődik a konténer, amely a teljes tartalmat fogja tartalmazni
+    <div class="row">                                                                                           // Ez a sor két oszlopot tartalmaz majd
         <!-- Étlap oldal -->
-        <div class="col-md-8">
-            <h3>Étlap</h3>
-            <div id="etlap-kontener" class="row">
+        <div class="col-md-8">                                                                                  // Ez a bal oldali oszlop, ahol az étlap lesz megjelenítve
+            <h3>Étlap</h3>                                                                                      // Ez a div lesz a konténer az ételek kártyáinak, amelyeket JavaScriptből fogunk feltölteni
+            <div id="etlap-kontener" class="row">                                                               // Ez a div lesz a konténer az ételek kártyáinak, amelyeket JavaScriptből fogunk feltölteni
                 <!-- Ide kerülnek majd az ételek JavaScriptből -->
-                <div class="card etel-kartya">
-                    <div class="card-body">
+                <div class="card etel-kartya">                                                                  // Ez egy helyőrző kártya, amíg az ételek betöltődnek
+                    <div class="card-body">                                                                     // Ez a helyőrző szöveg, amely jelzi, hogy az ételek betöltése folyamatban van
                         <h5 class="card-title">Betöltés...</h5>
                     </div>
                 </div>
@@ -38,14 +39,14 @@ async function etlapBetoltes() {
         </div>
 
         <!-- Kosár oldal -->
-        <div class="col-md-4">
-            <h3>Kosár</h3>
+        <div class="col-md-4">                                                                                  // Ez a jobb oldali oszlop, ahol a kosár tartalma lesz megjelenítve
+            <h3>Kosár</h3>                                                                                      // Ez a lista fogja tartalmazni a kosárban lévő tételeket, amelyeket JavaScriptből fogunk feltölteni
             <ul id="kosar-lista" class="list-group mb-3">
-                <li class="list-group-item text-muted">A kosarad még üres.</li>
+                <li class="list-group-item text-muted">A kosarad még üres.</li>                                 // Ez a helyőrző szöveg, amely jelzi, hogy a kosár még üres
             </ul>
-            <div class="card p-3">
-                <h5>Összesen: <span id="osszesen">0</span> Ft</h5>
-                <button class="btn btn-success w-100" onclick="rendelesLeadasa()">Rendelés leadása</button>
+            <div class="card p-3">                                                                              // Ez a kártya tartalmazza majd az összesítést és a rendelés leadásához szükséges gombot
+                <h5>Összesen: <span id="osszesen">0</span> Ft</h5>                                              // Ez a span elem fogja megjeleníteni a kosárban lévő tételek összértékét, amelyet JavaScriptből fogunk frissíteni
+                <button class="btn btn-success w-100" onclick="rendelesLeadasa()">Rendelés leadása</button>     // Ez a gomb fogja meghívni a rendelés leadásához szükséges JavaScript függvényt
             </div>
         </div>
     </div>
