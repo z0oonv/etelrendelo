@@ -20,7 +20,7 @@ let db;
             driver: sqlite3.Database
         });
 
-        // 2. Tábla létrehozása
+        // 2. Tábla létrehozása etelek néven, ha még nem létezik
         await db.exec(`
             CREATE TABLE IF NOT EXISTS etelek (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,8 +28,17 @@ let db;
                 ar INTEGER
             )
         `);
+        // 3. tábla létrehozása rendelések néven, ha még nem létezik
+        await db.exec(`
+            CREATE TABLE IF NOT EXISTS rendelesek (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                etelek TEXT,
+                osszeg INTEGER
+            )
+        `);
 
-        // 3. Alapadatok feltöltése
+
+        // 4. Alapadatok feltöltése
         const rows = await db.all("SELECT * FROM etelek");
         if (rows.length === 0) {
             await db.run("INSERT INTO etelek (nev, ar) VALUES ('Margherita Pizza', 2500)");
@@ -61,12 +70,43 @@ app.get('/api/etelek', async (req, res) => {
 app.post('/api/rendeles', async (req, res) => {
     const rendeles = req.body;
 
-    // 1. Validálás 
+    // 1. Validálás
     if (!rendeles.etelek || rendeles.etelek.length === 0) {
         return res.status(400).json({ hiba: "Üres rendelést nem lehet leadni!" });
     }
 
-    // 2. Rendelési előzmények mentése fájlba 
+    try {
+       // 2. Rendelés mentése adatbázisba
+        // Az etelek oszlopban JSON stringként tároljuk a rendelés részleteit
+        await db.run("INSERT INTO rendelesek (etelek, osszeg) VALUES (?, ?)",
+            [JSON.stringify(rendeles.etelek), rendeles.osszeg]);
+
+        // 3. Rendelési előzmények mentése fájlba
+        const naploBejegyzes = {
+            időpont: new Date().toISOString(),
+            rendeles: rendeles.etelek,
+            vegosszeg: rendeles.osszeg
+        };
+
+        fs.appendFile('rendelesek.log', JSON.stringify(naploBejegyzes) + "\n", (err) => {
+            if (err) console.error("Hiba a naplózásnál:", err);
+        });
+
+        // 4. Visszajelzés a kliensnek
+        console.log("Rendelés mentve és naplózva:", rendeles);
+        res.json({ uzenet: "Rendelésedet rögzítettük az adatbázisban és a naplóban is!", statusz: "OK" });
+
+    } catch (err) {
+        console.error("Hiba a folyamat során:", err);
+        // Ha a válasz még nem lett elküldve, küldjünk egy hibaválaszt
+        if (!res.headersSent) {
+            res.status(500).json({ hiba: "Nem sikerült rögzíteni a rendelést" });
+        }
+    }
+   
+   
+
+    // 3. Rendelési előzmények mentése fájlba 
     const naploBejegyzes = {
         időpont: new Date().toISOString(),
         rendeles: rendeles.etelek,
