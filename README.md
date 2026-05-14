@@ -39,6 +39,7 @@ Ez egy Full-Stack webalkalmazás, amely egy egyszerű éttermi rendelési folyam
     U->>F: "Rendelés leadása" gomb
     F->>B: POST /api/rendeles (rendelesLeadasa() függvény)
     B->>B: Validálás & Logolás (Express middleware)
+    B->>D: INSERT INTO rendelesek
     B-->>F: JSON válasz { statusz: "OK" }
     F->>U: "Sikeres rendelés" felugró üzenet
 ```
