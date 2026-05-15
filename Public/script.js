@@ -48,7 +48,6 @@ function kosarFrissites() {
     lista.innerHTML = '';
     let szum = 0;
 
-    // JAVÍTÁS: Itt hiányzott a forEach ciklus indítása!
     kosar.forEach(item => {
         szum += item.ar;
         lista.innerHTML += `
