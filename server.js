@@ -104,5 +104,4 @@ app.post('/api/rendeles', async (req, res) => {
             return res.status(500).json({ hiba: "Nem sikerült rögzíteni a rendelést" });
         }
     }
-    // FIGYELEM: Itt már ne legyen semmi más! A függvény véget ér.
 });
