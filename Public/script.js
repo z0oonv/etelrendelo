@@ -40,7 +40,7 @@ function kosarba(nev, ar) {
     kosarFrissites();
 }
 
-// [FE-03] A kosár vizuális frissítése (ITT VOLT A HIBA)
+// [FE-03] A kosár vizuális frissítése 
 function kosarFrissites() {
     const lista = document.getElementById('kosar-lista');
     const osszesen = document.getElementById('osszesen');
